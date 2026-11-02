@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Финансовый директор для магазина белья и купальников</title>
+    
+    <!-- Подключение Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Подключение шрифта Manrope -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Иконки Phosphor -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <!-- Настройка Tailwind -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Manrope', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            dark: '#0B0F19',
+                            card: '#111827',
+                            accent: '#10B981', // Изумрудный для денег/выгоды
+                            accentHover: '#059669',
+                        }
+                    },
+                    boxShadow: {
+                        'neon': '0 0 20px rgba(16, 185, 129, 0.3)',
+                        'neon-strong': '0 0 30px rgba(16, 185, 129, 0.6)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Стилизация ползунков (Range Sliders) для всех браузеров */
+        input[type=range] {
+            -webkit-appearance: none;
+            width: 100%;
+            background: transparent;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 24px;
+            width: 24px;
+            border-radius: 50%;
+            background: #10B981;
+            cursor: pointer;
+            margin-top: -10px;
+            box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+            border: 2px solid #fff;
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 6px;
+            cursor: pointer;
+            background: #374151;
+            border-radius: 4px;
+        }
+        input[type=range]:focus {
+            outline: none;
+        }
+        /* Плавные переходы для цифр */
+        .value-transition {
+            transition: all 0.3s ease-out;
+        }
+    </style>
+</head>
+<body class="bg-brand-dark text-slate-300 font-sans antialiased selection:bg-brand-accent selection:text-white">
+
+    <!-- Навигация -->
+    <nav class="fixed w-full z-50 bg-brand-dark/80 backdrop-blur-md border-b border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex-shrink-0 flex items-center gap-2">
+                    <i class="ph-fill ph-chart-polar text-brand-accent text-3xl"></i>
+                    <span class="font-bold text-xl text-white tracking-tight">FinRetail<span class="text-brand-accent">.</span></span>
+                </div>
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="#calculator" class="text-sm font-medium hover:text-white transition">Калькулятор прибыли</a>
+                    <a href="#expertise" class="text-sm font-medium hover:text-white transition">Экспертиза</a>
+                    <a href="#services" class="text-sm font-medium hover:text-white transition">Решения</a>
+                </div>
+                <div>
+                    <a href="#contact" class="px-5 py-2.5 rounded-full bg-white/10 hover:bg-white/20 text-white text-sm font-semibold transition border border-white/10 hidden md:block">
+                        Связаться
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Главный экран -->
+    <section class="pt-32 pb-20 md:pt-40 md:pb-28 px-4 relative overflow-hidden">
+        <!-- Декоративные элементы фона -->
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-brand-accent/20 blur-[120px] rounded-full pointer-events-none"></div>
+        
+        <div class="max-w-4xl mx-auto text-center relative z-10">
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-accent/10 border border-brand-accent/20 text-brand-accent text-sm font-semibold mb-6">
+                <i class="ph-fill ph-target"></i> Нишевой финдиректор для Fashion-ритейла
+            </div>
+            <h1 class="text-4xl md:text-6xl font-extrabold text-white leading-tight mb-6">
+                Найду замороженные деньги в остатках <br class="hidden md:block">
+                и выведу ваш магазин белья <br class="hidden md:block">
+                из <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-accent to-emerald-300">кассовых разрывов</span>
+            </h1>
+            <p class="text-lg md:text-xl text-slate-400 mb-10 max-w-2xl mx-auto">
+                Хватит спонсировать склады неходовыми размерами. Внедряю финансовый учет, который окупает себя в первый же месяц работы.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#calculator" class="px-8 py-4 rounded-xl bg-brand-accent hover:bg-brand-accentHover text-white font-bold text-lg shadow-neon hover:shadow-neon-strong transition-all flex items-center justify-center gap-2">
+                    Рассчитать упущенную прибыль <i class="ph-bold ph-arrow-down"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Секция Калькулятора -->
+    <section id="calculator" class="py-20 bg-brand-card/50 border-y border-white/5 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Сколько денег вы теряете прямо сейчас?</h2>
+                <p class="text-slate-400">Подвигайте ползунки, чтобы увидеть реальную картину скрытого потенциала вашего бизнеса.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+                
+                <!-- Панель управления (Ползунки) -->
+                <div class="lg:col-span-7 space-y-8 bg-brand-dark p-6 md:p-8 rounded-2xl border border-white/10">
+                    
+                    <!-- Ползунок 1: Выручка -->
+                    <div>
+                        <div class="flex justify-between items-end mb-4">
+                            <div>
+                                <label class="block text-sm font-medium text-slate-400 mb-1">Среднемесячная выручка магазина</label>
+                                <div class="text-2xl font-bold text-white"><span id="valRevenue">5 000 000</span> ₽</div>
+                            </div>
+                        </div>
+                        <input type="range" id="sliderRevenue" min="500000" max="30000000" step="500000" value="5000000" oninput="updateCalculator()">
+                        <div class="flex justify-between text-xs text-slate-500 mt-2 font-medium">
+                            <span>0.5 млн</span>
+                            <span>30 млн</span>
+                        </div>
+                    </div>
+
+                    <!-- Ползунок 2: Неликвид -->
+                    <div>
+                        <div class="flex justify-between items-end mb-4">
+                            <div>
+                                <label class="block text-sm font-medium text-slate-400 mb-1">Доля запасов без движения (более 90 дней)</label>
+                                <div class="text-2xl font-bold text-white"><span id="valDeadStock">20</span>%</div>
+                            </div>
+                        </div>
+                        <input type="range" id="sliderDeadStock" min="5" max="60" step="1" value="20" oninput="updateCalculator()">
+                        <div class="flex justify-between text-xs text-slate-500 mt-2 font-medium">
+                            <span>5% (Идеал)</span>
+                            <span>60% (Кризис)</span>
+                        </div>
+                    </div>
+
+                    <!-- Ползунок 3: Рентабельность -->
+                    <div>
+                        <div class="flex justify-between items-end mb-4">
+                            <div>
+                                <label class="block text-sm font-medium text-slate-400 mb-1">Текущая рентабельность по чистой прибыли</label>
+                                <div class="text-2xl font-bold text-white"><span id="valMargin">15</span>%</div>
+                            </div>
+                        </div>
+                        <input type="range" id="sliderMargin" min="1" max="40" step="1" value="15" oninput="updateCalculator()">
+                        <div class="flex justify-between text-xs text-slate-500 mt-2 font-medium">
+                            <span>1%</span>
+                            <span>40%</span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Панель результатов -->
+                <div class="lg:col-span-5 bg-gradient-to-br from-brand-accent/20 to-brand-card p-1 rounded-2xl relative">
+                    <div class="absolute inset-0 bg-brand-accent/10 blur-xl rounded-2xl pointer-events-none"></div>
+                    <div class="bg-brand-dark p-6 md:p-8 rounded-xl h-full relative z-10 border border-brand-accent/30 flex flex-col justify-between">
+                        
+                        <div class="mb-8">
+                            <h3 class="text-xl font-bold text-white flex items-center gap-2 mb-6">
+                                <i class="ph-fill ph-trend-up text-brand-accent"></i> Потенциал после внедрения учета
+                            </h3>
+                            
+                            <div class="space-y-6">
+                                <div>
+                                    <div class="text-sm text-slate-400 mb-1">Разовая разморозка капитала (из неликвида)</div>
+                                    <div class="text-3xl md:text-4xl font-extrabold text-white value-transition" id="resFrozenMoney">1 500 000 ₽</div>
+                                    <div class="text-xs text-brand-accent mt-1 flex items-center gap-1">
+                                        <i class="ph-bold ph-check-circle"></i> Вернем эти деньги в оборот
+                                    </div>
+                                </div>
+                                
+                                <div class="h-px bg-white/10 w-full"></div>
+
+                                <div>
+                                    <div class="text-sm text-slate-400 mb-1">Рост чистой прибыли (ежемесячно)</div>
+                                    <div class="text-2xl md:text-3xl font-extrabold text-brand-accent value-transition" id="resExtraProfit">+ 250 000 ₽</div>
+                                    <div class="text-xs text-slate-500 mt-1">За счет оптимизации скидок и закупок</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-brand-card/80 rounded-lg p-4 border border-white/5">
+                            <div class="text-sm text-slate-400 mb-2">Окупаемость моих услуг <span class="text-xs">(при тарифе ~<span id="resCfoCost">150 000</span> ₽/мес)</span></div>
+                            <div class="text-2xl font-bold text-white flex items-baseline gap-2">
+                                <span id="resROI" class="text-brand-accent">в 8 раз</span> 
+                                <span class="text-sm font-normal text-slate-500">за первый год</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Секция Экспертизы (Почему белье?) -->
+    <section id="expertise" class="py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Я знаю специфику магазинов белья</h2>
+                <p class="text-slate-400 max-w-2xl">Финансы в фэшн-ритейле — это не просто дебет и кредит. Это работа со специфическими болями ассортимента.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Карточка 1 -->
+                <div class="bg-brand-card p-8 rounded-2xl border border-white/5 hover:border-brand-accent/50 transition duration-300">
+                    <div class="w-12 h-12 rounded-xl bg-brand-accent/10 flex items-center justify-center mb-6">
+                        <i class="ph-bold ph-ruler text-2xl text-brand-accent"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Сложные размерные ряды</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        Чашки 75B и 80C продаются за неделю, а 70A и 85E висят полгода. Я настраиваю ABC-анализ так, чтобы закупка шла строго по маржинальным размерам.
+                    </p>
+                </div>
+
+                <!-- Карточка 2 -->
+                <div class="bg-brand-card p-8 rounded-2xl border border-white/5 hover:border-brand-accent/50 transition duration-300">
+                    <div class="w-12 h-12 rounded-xl bg-brand-accent/10 flex items-center justify-center mb-6">
+                        <i class="ph-bold ph-sun text-2xl text-brand-accent"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Сезонность и купальники</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        Кассовые разрывы весной перед закупкой летней коллекции. Внедряю платежный календарь, чтобы вы всегда знали, где взять деньги на предзаказ.
+                    </p>
+                </div>
+
+                <!-- Карточка 3 -->
+                <div class="bg-brand-card p-8 rounded-2xl border border-white/5 hover:border-brand-accent/50 transition duration-300">
+                    <div class="w-12 h-12 rounded-xl bg-brand-accent/10 flex items-center justify-center mb-6">
+                        <i class="ph-bold ph-tag text-2xl text-brand-accent"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Акции съедают прибыль</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        Продавцы делают скидки, чтобы выполнить план, а компания работает в ноль. Оцифровываю Unit-экономику и меняю KPI продавцов на валовую прибыль.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Секция Решений (Что я делаю) -->
+    <section id="services" class="py-20 bg-brand-card border-y border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div>
+                    <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">Что конкретно вы получите</h2>
+                    <p class="text-slate-400 mb-8">Никаких скучных отчетов ради отчетов. Только дашборды, помогающие принимать управленческие решения и генерировать деньги.</p>
+                    
+                    <ul class="space-y-6">
+                        <li class="flex items-start gap-4">
+                            <div class="mt-1 w-8 h-8 rounded-full bg-brand-accent/20 flex items-center justify-center flex-shrink-0 text-brand-accent">
+                                <i class="ph-bold ph-check"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-bold mb-1">Управленческий учет (ОПиУ, ДДС, Баланс)</h4>
+                                <p class="text-sm text-slate-400">Сведем все кассы, терминалы и расчетные счета в один понятный экран. Вы видите чистую прибыль каждый день, а не раз в месяц.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-4">
+                            <div class="mt-1 w-8 h-8 rounded-full bg-brand-accent/20 flex items-center justify-center flex-shrink-0 text-brand-accent">
+                                <i class="ph-bold ph-check"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-bold mb-1">Управление запасами (Оборачиваемость)</h4>
+                                <p class="text-sm text-slate-400">Настроим автоматический расчет точки заказа. Избавимся от пересорта базовых бюстгальтеров и трусиков.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-4">
+                            <div class="mt-1 w-8 h-8 rounded-full bg-brand-accent/20 flex items-center justify-center flex-shrink-0 text-brand-accent">
+                                <i class="ph-bold ph-check"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-bold mb-1">Финансовая мотивация команды</h4>
+                                <p class="text-sm text-slate-400">Свяжем зарплату консультантов с продажей маржинальных товаров, а не просто с оборотом.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="relative">
+                    <div class="absolute inset-0 bg-gradient-to-tr from-brand-accent/20 to-transparent rounded-2xl transform rotate-3"></div>
+                    <div class="bg-brand-dark border border-white/10 rounded-2xl p-6 relative z-10 shadow-2xl">
+                        <!-- Имитация Дашборда -->
+                        <div class="flex items-center justify-between border-b border-white/10 pb-4 mb-4">
+                            <div class="text-white font-bold">Дашборд Собственника</div>
+                            <div class="flex gap-2">
+                                <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                                <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                                <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                            </div>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="bg-white/5 rounded-lg p-4 flex justify-between items-center">
+                                <span class="text-slate-400 text-sm">Выручка (План/Факт)</span>
+                                <span class="text-white font-bold text-sm">115% <i class="ph-bold ph-arrow-up-right text-brand-accent"></i></span>
+                            </div>
+                            <div class="bg-white/5 rounded-lg p-4 flex justify-between items-center border border-brand-accent/30">
+                                <span class="text-brand-accent font-medium text-sm">Чистая прибыль</span>
+                                <span class="text-white font-bold text-sm">1 250 000 ₽</span>
+                            </div>
+                            <div class="flex gap-4">
+                                <div class="bg-white/5 rounded-lg p-4 flex-1">
+                                    <div class="text-slate-400 text-xs mb-1">Рентабельность</div>
+                                    <div class="text-white font-bold">21%</div>
+                                </div>
+                                <div class="bg-white/5 rounded-lg p-4 flex-1">
+                                    <div class="text-slate-400 text-xs mb-1">Неликвид</div>
+                                    <div class="text-red-400 font-bold">8% <i class="ph-bold ph-arrow-down"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Призыв к действию (CTA) -->
+    <section id="contact" class="py-24 relative overflow-hidden">
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-3xl h-[300px] bg-brand-accent/20 blur-[100px] rounded-full pointer-events-none"></div>
+        
+        <div class="max-w-4xl mx-auto px-4 text-center relative z-10">
+            <h2 class="text-3xl md:text-5xl font-bold text-white mb-6">Готовы найти скрытые резервы?</h2>
+            <p class="text-xl text-slate-300 mb-10">
+                Запишитесь на бесплатный 40-минутный экспресс-разбор. <br class="hidden md:block"> Мы посмотрим ваши остатки, структуру расходов и я покажу 3 точки роста прибыли уже на звонке.
+            </p>
+            <form class="max-w-md mx-auto space-y-4" onsubmit="event.preventDefault(); alert('В реальном проекте здесь будет отправка формы в CRM или Telegram!');">
+                <input type="text" placeholder="Имя" class="w-full bg-brand-card border border-white/10 rounded-xl px-5 py-4 text-white focus:outline-none focus:border-brand-accent transition" required>
+                <input type="tel" placeholder="Номер телефона" class="w-full bg-brand-card border border-white/10 rounded-xl px-5 py-4 text-white focus:outline-none focus:border-brand-accent transition" required>
+                <button type="submit" class="w-full bg-brand-accent hover:bg-brand-accentHover text-white font-bold text-lg px-8 py-4 rounded-xl shadow-neon hover:shadow-neon-strong transition-all mt-4">
+                    Получить экспресс-разбор
+                </button>
+                <p class="text-xs text-slate-500 mt-4">Нажимая на кнопку, вы соглашаетесь с политикой конфиденциальности.</p>
+            </form>
+        </div>
+    </section>
+
+    <!-- Подвал -->
+    <footer class="border-t border-white/5 py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex-shrink-0 flex items-center gap-2">
+                <i class="ph-fill ph-chart-polar text-brand-accent text-xl"></i>
+                <span class="font-bold text-lg text-white tracking-tight">FinRetail<span class="text-brand-accent">.</span></span>
+            </div>
+            <div class="text-sm text-slate-500">
+                © 2026 Ваш Финдиректор. Специализация на Retail.
+            </div>
+            <div class="flex gap-4">
+                <a href="#" class="text-slate-400 hover:text-white transition"><i class="ph-bold ph-telegram-logo text-xl"></i></a>
+                <a href="#" class="text-slate-400 hover:text-white transition"><i class="ph-bold ph-whatsapp-logo text-xl"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Скрипт калькулятора -->
+    <script>
+        // Форматирование валюты
+        const formatMoney = (amount) => {
+            return new Intl.NumberFormat('ru-RU', { 
+                style: 'currency', 
+                currency: 'RUB',
+                maximumFractionDigits: 0
+            }).format(amount);
+        };
+
+        // Форматирование чисел с пробелами (для лейблов)
+        const formatNumber = (num) => {
+            return new Intl.NumberFormat('ru-RU').format(num);
+        };
+
+        function updateCalculator() {
+            // 1. Получаем значения с ползунков
+            const rev = parseFloat(document.getElementById('sliderRevenue').value);
+            const ds = parseFloat(document.getElementById('sliderDeadStock').value);
+            const pm = parseFloat(document.getElementById('sliderMargin').value);
+
+            // Обновляем текст лейблов над ползунками
+            document.getElementById('valRevenue').innerText = formatNumber(rev);
+            document.getElementById('valDeadStock').innerText = ds;
+            document.getElementById('valMargin').innerText = pm;
+
+            // --- БИЗНЕС ЛОГИКА РАСЧЕТОВ ---
+            
+            // Динамическая стоимость услуг финдиректора (в мес)
+            // Зависит от масштаба бизнеса. Минимум 50 000 ₽, в среднем 1.5% от выручки
+            const cfoCost = Math.max(50000, rev * 0.015); 
+
+            // Гипотеза 1: Стоимость товарных остатков.
+            // В фэшн-рознице остатки обычно составляют около 2 месяцев выручки.
+            const inventoryValue = rev * 2;
+            
+            // Гипотеза 2: Объем неликвида в рублях
+            const deadStockValue = inventoryValue * (ds / 100);
+            
+            // Расчет 1: Размороженные средства (разовая акция)
+            // Допускаем, что мы сможем вытащить/распродать 70% из замороженного неликвида
+            const recoveredMoney = deadStockValue * 0.7;
+
+            // Гипотеза 3: Рост рентабельности
+            // Теперь зависит от текущей рентабельности (pm). Чем она ниже, тем больше потенциал.
+            // Формула дает потенциальный рост от 2% до 12% в абсолютном выражении.
+            const potentialGrowth = Math.max(2, (35 - pm) / 2.5);
+            const profitIncreaseMargin = potentialGrowth / 100;
+            const extraProfitPerMonth = rev * profitIncreaseMargin;
+
+            // Расчет 2: ROI (Окупаемость за год)
+            // (Доп прибыль за год + Разово размороженные деньги) / (Стоимость фин.директора за год)
+            const annualExtraProfit = extraProfitPerMonth * 12;
+            const annualCfoCost = cfoCost * 12;
+            const totalFinancialBenefit = annualExtraProfit + recoveredMoney;
+            
+            let roiMultiplicator = totalFinancialBenefit / annualCfoCost;
+            
+            // Защита от отрицательных и нулевых значений
+            if (roiMultiplicator < 1) roiMultiplicator = 1.1;
+
+            // 3. Вывод результатов в DOM
+            document.getElementById('resCfoCost').innerText = formatNumber(cfoCost);
+            document.getElementById('resFrozenMoney').innerText = formatMoney(recoveredMoney);
+            document.getElementById('resExtraProfit').innerText = '+' + formatMoney(extraProfitPerMonth);
+            
+            // Форматируем множитель окупаемости (округляем до десятых)
+            document.getElementById('resROI').innerText = `в ${roiMultiplicator.toFixed(1)} раз`;
+        }
+
+        // Инициализация при загрузке страницы
+        window.addEventListener('DOMContentLoaded', () => {
+            updateCalculator();
+        });
+    </script>
+</body>
+</html>
